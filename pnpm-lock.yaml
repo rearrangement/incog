@@ -60,11 +60,11 @@ importers:
         specifier: ^2.0.2
         version: 2.0.2
       '@rubynetwork/rammerhead':
-        specifier: 1.3.1
-        version: 1.3.1(bufferutil@4.0.8)(utf-8-validate@6.0.4)
+        specifier: 1.3.2-beta
+        version: 1.3.2-beta(bufferutil@4.0.8)(utf-8-validate@6.0.4)
       '@rubynetwork/rammerhead-browser':
-        specifier: ^1.0.8
-        version: 1.0.8
+        specifier: ^1.0.9
+        version: 1.0.9
       '@titaniumnetwork-dev/ultraviolet':
         specifier: ^3.1.2
         version: 3.1.2
@@ -1362,15 +1362,15 @@ packages:
   '@rubynetwork/corlink-fastify@2.0.2':
     resolution: {integrity: sha512-ghsvGByB8oiLLyZD6JmDLX2lnUJtmOnRkVIgrFgrABJb/nDuQjNE1SG3hbvHi0MaO9x+h0YulQp5VtiCRxpFNQ==}
 
-  '@rubynetwork/rammerhead-browser@1.0.8':
-    resolution: {integrity: sha512-lQUxv3TjCkktjZw7DISjDSXZvtjkcPSSx8ytGofIsqsP5t8OH6rwWXPTOLcy0RlsfF3MkIAfVYtiMnVa34q2MQ==}
+  '@rubynetwork/rammerhead-browser@1.0.9':
+    resolution: {integrity: sha512-Vtg4HmV8zRMexyQNN3HnOK2qCql5s51lD747AINxENZAOKbow1IIj1U9jmAqvaZCklLTuhQhwS/8wxn6GLyptQ==}
 
-  '@rubynetwork/rammerhead@1.3.1':
-    resolution: {integrity: sha512-PRVhSgGNxu7MW2F3DLJtz6TpU63OXd68T6uoPeq6et7glrBvKmEuFo0KLwVcaAmfICrkHDK1kFvTujXYJPCECg==}
+  '@rubynetwork/rammerhead@1.3.2-beta':
+    resolution: {integrity: sha512-xkWF7SnO6TPSrBMIYd64U1AkZJp1L8J3bSssyTxBca3IIj142+T/MuD6Hi0DHrEi3fAYxd7xjGY3Kfic3tQF+A==}
     hasBin: true
 
-  '@rubynetwork/rh@1.2.68':
-    resolution: {integrity: sha512-6LSFs2paa0gdgyDNwGr0zXBJQfwb1pS0hkSQHIV5EuQMBcgZiZwTOiSCyo8faeJKHDaglLJCbcJ+XnbK4RyHyQ==}
+  '@rubynetwork/rh@1.2.71':
+    resolution: {integrity: sha512-nx7aDfC25ZzwK0zIMEbImKf2cv72h0Y5mYs5G/E3+rkhp36rAHNVrWV5QWYuPRMtudeiJpiMaei3i4F5KxtzDg==}
 
   '@shikijs/core@1.10.0':
     resolution: {integrity: sha512-BZcr6FCmPfP6TXaekvujZcnkFmJHZ/Yglu97r/9VjzVndQA56/F4WjUKtJRQUnK59Wi7p/UTAOekMfCJv7jnYg==}
@@ -2115,8 +2115,8 @@ packages:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
 
-  esotope-hammerhead@0.6.5:
-    resolution: {integrity: sha512-vjncN4nG+RvsUNFC0idHNw1Xzse8GUWn15tr8In0Q4EBscnELTdpQVfsF/cRsMlvSbJdd0gUrW6gK5U+LTmVCg==}
+  esotope-hammerhead@0.6.8:
+    resolution: {integrity: sha512-2Zhg0c6NfrNA4QT5s4+QG5WJQtq3Se7GonNwtNwfr7sVIo/7L8rirPfh9yyloEmDA7R0yPgD10teFxhf2vWyIw==}
 
   esprima@4.0.1:
     resolution: {integrity: sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==}
@@ -3735,8 +3735,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  testcafe-hammerhead@31.6.2:
-    resolution: {integrity: sha512-0whraISoT70LN9K6y1zgti30/M0seYVWlODZCWhUlDPZHSQDZaSj2G6QSamj2hfaki6DAB1qnE5x2FA8TvJcYA==}
+  testcafe-hammerhead@31.7.2:
+    resolution: {integrity: sha512-wjZ3Y4fXnew6WaoMhD7jTe/zrzSYJMLZulX+/pXS6xed9meUx7zzCSc5epPJEW8Xy3Zo09n7w+m7+2SDej0/Iw==}
     engines: {node: '>=14.0.0'}
 
   text-hex@1.0.0:
@@ -5678,11 +5678,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@rubynetwork/rammerhead-browser@1.0.8': {}
+  '@rubynetwork/rammerhead-browser@1.0.9': {}
 
-  '@rubynetwork/rammerhead@1.3.1(bufferutil@4.0.8)(utf-8-validate@6.0.4)':
+  '@rubynetwork/rammerhead@1.3.2-beta(bufferutil@4.0.8)(utf-8-validate@6.0.4)':
     dependencies:
-      '@rubynetwork/rh': 1.2.68(bufferutil@4.0.8)(utf-8-validate@6.0.4)
+      '@rubynetwork/rh': 1.2.71(bufferutil@4.0.8)(utf-8-validate@6.0.4)
       commander: 12.1.0
       picocolors: 1.0.1
     transitivePeerDependencies:
@@ -5690,13 +5690,13 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@rubynetwork/rh@1.2.68(bufferutil@4.0.8)(utf-8-validate@6.0.4)':
+  '@rubynetwork/rh@1.2.71(bufferutil@4.0.8)(utf-8-validate@6.0.4)':
     dependencies:
       async-exit-hook: 2.0.1
       lru-cache: 7.18.3
       mime: 2.6.0
       sticky-session-custom: 1.2.1
-      testcafe-hammerhead: 31.6.2(bufferutil@4.0.8)(utf-8-validate@6.0.4)
+      testcafe-hammerhead: 31.7.2(bufferutil@4.0.8)(utf-8-validate@6.0.4)
       uglify-js: 3.18.0
       uuid: 8.3.2
       ws: 8.17.1(bufferutil@4.0.8)(utf-8-validate@6.0.4)
@@ -6559,7 +6559,7 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
-  esotope-hammerhead@0.6.5:
+  esotope-hammerhead@0.6.8:
     dependencies:
       '@types/estree': 0.0.46
 
@@ -8463,7 +8463,7 @@ snapshots:
       commander: 2.20.3
       source-map-support: 0.5.21
 
-  testcafe-hammerhead@31.6.2(bufferutil@4.0.8)(utf-8-validate@6.0.4):
+  testcafe-hammerhead@31.7.2(bufferutil@4.0.8)(utf-8-validate@6.0.4):
     dependencies:
       '@adobe/css-tools': 4.4.0
       '@electron/asar': 3.2.10
@@ -8471,7 +8471,7 @@ snapshots:
       bowser: 1.6.0
       crypto-md5: 1.0.0
       debug: 4.3.1
-      esotope-hammerhead: 0.6.5
+      esotope-hammerhead: 0.6.8
       http-cache-semantics: 4.1.1
       httpntlm: 1.8.13
       iconv-lite: 0.5.1

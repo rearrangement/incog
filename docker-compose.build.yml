@@ -2,7 +2,7 @@ version: "3"
 
 services:
   incognito:
-    image: incognito:latest
+    image: motortruck1221/incognito:latest
     build:
       context: .
       dockerfile: Dockerfile

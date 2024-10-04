@@ -1,5 +1,5 @@
 import { createServer } from 'node:http';
-import { createBareServer } from '@tomphttp/bare-server-node';
+import { createBareServer } from '@nebula-services/bare-server-node';
 import wisp from 'wisp-server-node';
 import { createRammerhead, shouldRouteRh, routeRhRequest, routeRhUpgrade } from '@rubynetwork/rammerhead';
 function initRHServer() {

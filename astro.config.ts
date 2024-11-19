@@ -30,11 +30,6 @@ export default defineConfig({
     experimental: {
         env: {
             schema: {
-                BARE_SERVER_OPTION: envField.boolean({
-                    context: 'client',
-                    access: 'public',
-                    default: true
-                }),
                 GAMES_LINK: envField.boolean({
                     context: 'client',
                     access: 'public',

@@ -7,7 +7,7 @@ import { Icon } from 'astro-icon/components';
 const images = import.meta.glob<{ default: ImageMetadata }>(
     '/src/assets/games/*.{jpeg,jpg,png,gif,webp}'
 );
-let games = await import('src/assets/games.json');
+let games = await import('src/data/games.json');
 if (!GAMES_LINK) {
     return Astro.redirect('/');
 }

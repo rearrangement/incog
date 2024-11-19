@@ -2,9 +2,6 @@
 import type { GetStaticPaths } from "astro";
 import games from "../../data/games.json";
 const { game } = Astro.params;
-const proxy = Astro.url.searchParams.get('py') || null;
-const url = Astro.url.searchParams.get('url') || null;
-const baseFile = Astro.url.searchParams.get('bf') || null;
 import { GAMES_LINK } from 'astro:env/client';
 import Layout from '@layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
@@ -41,12 +38,9 @@ export const getStaticPaths = (async () => {
                 </button>
             </div>
         </div>
-        <proxy-url data-url={decode(url as string)} data-proxy={proxy} class="hidden" />
-        {proxy !== "true" ?
-            <iframe id="gameIframe" class="w-full h-full" src={`/gms/${decode(game as string)!.toLowerCase().replace(/\s/g, '-')}/${decode(baseFile as string)}`} />
-            :
-            <iframe id="gameIframe" class="w-full h-full" src="/load" />
-        }
+        <iframe id="gameIframe-normal" class="hidden w-full h-full" src="/load" />
+        <iframe id="gameIframe-py" class="hidden w-full h-full" src="/load" />
+        <proxy-url data-gm={game} class="hidden" />
     </div>
     <script>
         import { initServiceWorker } from "@scripts/serviceWorker.ts";
@@ -72,25 +66,41 @@ export const getStaticPaths = (async () => {
                     url = await RammerheadEncode(term)
                 }
             }
-            const iframe = document.getElementById("gameIframe") as HTMLIFrameElement
+            const iframe = document.getElementById("gameIframe-py") as HTMLIFrameElement
             iframe.src = url as string || "/load";
             if (!iframe) {
                 return; 
             }
         }
+        let game: string | undefined;
         class ProxyUrl extends HTMLElement {
             constructor() {
                 super();
-                const url = this.dataset.url;
-                const proxy = this.dataset.proxy;
-                if (url && proxy === "true") { 
-                    prox(url);
-                }
+                game = this.dataset.gm;
             }
         }
         customElements.define("proxy-url", ProxyUrl);
-    </script>
-    <script is:inline>
-        history.pushState({}, "", "/gs");
+        try {
+            document.addEventListener("astro:page-load", async () => {
+                const params = new URLSearchParams(window.location.search);
+                const py = params.get("py");
+                const url = params.get("url");
+                const baseFile = params.get("bf");
+                const pyIframe = document.getElementById("gameiframe-py") as HTMLIFrameElement;
+                const normalIframe = document.getElementById("gameIframe-normal") as HTMLIFrameElement;
+                if (py && url) {
+                    pyIframe.classList.remove("hidden");
+                    await prox(url);
+                }
+                else {
+                    if (normalIframe) {
+                        normalIframe.classList.remove("hidden");
+                        normalIframe.src = "/load";
+                        normalIframe.src = `/gms/${atob(game as string)!.toLowerCase().replace(/\s/g, '-')}/${atob(baseFile as string)}`
+                    }
+                }
+                history.pushState({}, "", "/gs");
+            });
+        } catch (_) {}
     </script>
 </Layout>

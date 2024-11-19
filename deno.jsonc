@@ -2,8 +2,9 @@
   "$schema": "https://deno.land/x/deno@v2.0.6/cli/schemas/config-file.v1.json",
   "nodeModulesDir": "auto",
   "tasks": {
-    "dev:server": "deno run --allow-net --watch server/server.ts",
+    "dev:server": "deno run -A --watch server/server.ts",
     "dev:client": "astro dev",
+    "dev": "deno task dev:server & deno task dev:client",
     "build": "astro build",
     "start": "deno run --allow-net server/server.ts"
   },
@@ -39,6 +40,8 @@
       "@titaniumnetwork-dev/ultraviolet": "npm:@titaniumnetwork-dev/ultraviolet@^3.2.10",
       "wisp-server-node": "npm:wisp-server-node@^1.1.7",
       //random other deps
-      "chalk": "npm:chalk@^5.3.0"
+      "chalk": "npm:chalk@^5.3.0",
+      "@types/node": "npm:@types/node@^22.9.0",
+      "gradient-string": "npm:gradient-string@^3.0.0"
   }
 }

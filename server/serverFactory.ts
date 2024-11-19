@@ -1,14 +1,16 @@
 import { createServer } from 'node:http';
+import { Socket } from "node:net";
+import { type FastifyServerFactory, FastifyServerFactoryHandler, RawServerDefault } from "npm:fastify";
 import wisp from 'npm:wisp-server-node';
 
-const serverFactory = (handler: any) => {
+const serverFactory: FastifyServerFactory = (handler: FastifyServerFactoryHandler): RawServerDefault => {
     return createServer()
-        .on('request', (req: any, res: any) => {
+        .on('request', (req, res) => {
             handler(req, res);
         })
-        .on('upgrade', (req: any, socket: any, head: any) => {
+        .on('upgrade', (req, socket, head) => {
             if (req.url?.endsWith('/wisp/')) {
-                wisp.routeRequest(req, socket, head);
+                wisp.routeRequest(req, socket as Socket, head);
             }
         });
 };

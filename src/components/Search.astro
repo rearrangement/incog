@@ -1,6 +1,5 @@
 ---
 import { Icon } from 'astro-icon/components';
-const { link } = Astro.props;
 import FrameManager from '@components/FrameManager.astro';
 ---
 <FrameManager />
@@ -17,15 +16,12 @@ import FrameManager from '@components/FrameManager.astro';
         </div>
         <div id="search-suggestions" class="hidden w-full flex flex-col"></div>
     </div>
-    <current-url data-link={link} /> 
     <script>
         import { RAMMERHEAD_PREFIX } from 'astro:env/client';
         import { BareClient } from "@mercuryworkshop/bare-mux";
         //simple script I wrote so I don't have to repeat myself (located at: src/ts/serviceWorker.ts)
         import { initServiceWorker } from "@scripts/serviceWorker.ts";
         import { RammerheadEncode } from "@rubynetwork/rammerhead-browser";
-        //initially this is null but it gets defined almost immediately
-        let link: any = null; 
         //sets the style of the iframe and enables the little panel at the top
         async function prox(term: string) {
             let url;
@@ -48,19 +44,13 @@ import FrameManager from '@components/FrameManager.astro';
                 return; 
             }
         }
-        //we define a custom element here to set link to the params from the frontmatter
-        class CurrentUrl extends HTMLElement {
-            constructor() {
-                super();
-                link = this.dataset.link;
-            }
-        }
-        customElements.define("current-url", CurrentUrl);
         document.addEventListener("DOMContentLoaded", () => {
             initServiceWorker().then(() => { console.log('Service worker active!') });
         });
         //define all of our events and if there is a link proxy it and set the history to /
-        document.addEventListener("astro:page-load", function () {
+        document.addEventListener("astro:page-load", function () {        
+            let links: URLSearchParams = new URLSearchParams(window.location.search);
+            const link = links.get('link');
             const client = new BareClient();
             //this is in a try {} catch {} as to not pollute the console with errors
             //it will error due to this running on every page and not just this one

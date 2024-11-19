@@ -1,4 +1,6 @@
 ---
+import type { GetStaticPaths } from "astro";
+import games from "../../data/games.json";
 const { game } = Astro.params;
 const proxy = Astro.url.searchParams.get('py') || null;
 const url = Astro.url.searchParams.get('url') || null;
@@ -14,6 +16,15 @@ function decode(val: string) {
 if (!GAMES_LINK) {
     return Astro.redirect('/');
 }
+interface Game {
+    params: { game: string };
+}
+export const getStaticPaths = (async () => {
+    const gamesList: Game[] = games.map((game) => ({
+        params: { game: btoa(game.name) }
+    }));
+    return gamesList;
+}) satisfies GetStaticPaths;
 ---
 <Layout title="">
     <div class="flex flex-col w-full h-full bg-[--background]">
@@ -41,6 +52,9 @@ if (!GAMES_LINK) {
         import { initServiceWorker } from "@scripts/serviceWorker.ts";
         import { RammerheadEncode } from "@rubynetwork/rammerhead-browser";
         import { RAMMERHEAD_PREFIX } from "astro:env/client";
+        document.addEventListener("DOMContentLoaded", () => {
+            initServiceWorker().then(() => { console.log('Service worker active!') });
+        })
         window.fullScreenGame = function() {
             const iframe = document.getElementById("gameIframe") as HTMLIFrameElement;
             iframe.requestFullscreen();
@@ -70,10 +84,7 @@ if (!GAMES_LINK) {
                 const url = this.dataset.url;
                 const proxy = this.dataset.proxy;
                 if (url && proxy === "true") { 
-                    initServiceWorker().then(() => {
-                        console.log("ea" + url)
-                        prox(url);
-                    })
+                    prox(url);
                 }
             }
         }

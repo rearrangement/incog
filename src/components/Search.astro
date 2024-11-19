@@ -20,7 +20,8 @@ import FrameManager from '@components/FrameManager.astro';
     <current-url data-link={link} /> 
     <script>
         import { RAMMERHEAD_PREFIX } from 'astro:env/client';
-        //simple script I wrote so I don't have to repeat my self (located at: src/ts/serviceWorker.ts)
+        import { BareClient } from "@mercuryworkshop/bare-mux";
+        //simple script I wrote so I don't have to repeat myself (located at: src/ts/serviceWorker.ts)
         import { initServiceWorker } from "@scripts/serviceWorker.ts";
         import { RammerheadEncode } from "@rubynetwork/rammerhead-browser";
         //initially this is null but it gets defined almost immediately
@@ -55,16 +56,18 @@ import FrameManager from '@components/FrameManager.astro';
             }
         }
         customElements.define("current-url", CurrentUrl);
+        document.addEventListener("DOMContentLoaded", () => {
+            initServiceWorker().then(() => { console.log('Service worker active!') });
+        });
         //define all of our events and if there is a link proxy it and set the history to /
         document.addEventListener("astro:page-load", function () {
+            const client = new BareClient();
             //this is in a try {} catch {} as to not pollute the console with errors
             //it will error due to this running on every page and not just this one
             try {
                 if (link) {
-                    initServiceWorker().then(() => {
-                        prox(__uv$config!.prefix + link);
-                        history.pushState({}, "", "/");
-                    })
+                    prox(__uv$config!.prefix + link);
+                    history.pushState({}, "", "/");
                 }
                 const formInput = document.getElementById("form-input") as HTMLInputElement;
                 document.getElementById("form-submit")?.addEventListener("click", function () {
@@ -78,13 +81,11 @@ import FrameManager from '@components/FrameManager.astro';
                 })
                 document.getElementById("form-input")?.addEventListener("keypress", function (event: any) {
                     if (event.key === "Enter") {
-                        initServiceWorker().then(() => {
-                            const iframe = document.getElementById("iframe") as HTMLIFrameElement;
-                            if (!iframe) {
-                                return;
-                            }
-                            prox(formInput?.value)
-                        })
+                        const iframe = document.getElementById("iframe") as HTMLIFrameElement;
+                        if (!iframe) {
+                            return;
+                        }
+                        prox(formInput?.value)
                     }
                 })
                 document.getElementById("form-input")?.addEventListener("input", async function() {
@@ -102,26 +103,22 @@ import FrameManager from '@components/FrameManager.astro';
                         document.getElementById("search-suggestions")?.classList.add("hidden");
                     }
                     if (value.length >= 3) {
-                        //fetch from the API (which just fetches from ddg)
-                        await fetch("/api/search", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: value })}).then(async (apiRes) => { 
-                            if (apiRes) {
-                                const searchSuggestions = document.getElementById("search-suggestions") as HTMLElement
-                                let data = await apiRes.json();
-                                searchSuggestions.innerHTML = "";
-                                data.map((results: Suggestion) => {
-                                    let span = document.createElement("span")
-                                    span.classList.add("border-t-[1px]", "border-t-[--border-color]", "cursor-pointer", "hover:brightness-75", "text-[20px]", "py-[35px]");
-                                    span.id = "search-result"
-                                    span.innerText = results.phrase;
-                                    span.addEventListener("click", function() {
-                                        initServiceWorker().then(() => {
-                                            prox(results.phrase) 
-                                        })
-                                    })
-                                    searchSuggestions.appendChild(span);
+                        const data = await client.fetch(`https://api.duckduckgo.com/ac?q=${encodeURIComponent(value)}&format=json`);
+                        const dataRes = await data.json();
+                        if (dataRes) {
+                            const searchSuggestions = document.getElementById("search-suggestions") as HTMLElement
+                            searchSuggestions.innerHTML = "";
+                            dataRes.map((results: Suggestion) => {
+                                let span = document.createElement("span")
+                                span.classList.add("border-t-[1px]", "border-t-[--border-color]", "cursor-pointer", "hover:brightness-75", "text-[20px]", "py-[35px]");
+                                span.id = "search-result"
+                                span.innerText = results.phrase;
+                                span.addEventListener("click", function() {
+                                    prox(results.phrase) 
                                 })
-                            }
-                        })
+                                searchSuggestions.appendChild(span);
+                            })
+                        }
                     }
                 })
             } catch (_) {}

@@ -7,7 +7,7 @@ import fastifyStatic from '@fastify/static';
 import { masqr } from '@rubynetwork/corlink-fastify';
 import chalk from 'chalk';
 import Fastify from 'fastify';
-import isDocker from 'is-docker';
+//import isDocker from 'is-docker';
 //@ts-ignore THE FILE IS GENERATED AT FUCKING BUILD WHY WOULD I WANT IT TYPE CHECKED
 import { handler as ssrHandler } from '../dist/server/entry.mjs';
 import { serverFactory } from './serverFactory';
@@ -42,11 +42,11 @@ await app.register(fastifyHttpProxy, {
 });
 app.use(ssrHandler);
 let port: number;
-if (isDocker()) {
+//if (isDocker()) {
     port = 8080;
-} else {
+//} else {
     port = parseInt(process.env.PORT as string);
-}
+//}
 console.log(chalk.green(`Server listening on ${chalk.bold('http://localhost:' + port)}`));
 console.log(chalk.magenta(`Server also listening on ${chalk.bold('http://0.0.0.0:' + port)}`));
 

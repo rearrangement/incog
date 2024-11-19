@@ -1,7 +1,7 @@
 import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
-import { baremuxPath } from '@mercuryworkshop/bare-mux';
+import { baremuxPath } from '@mercuryworkshop/bare-mux/node';
 import { epoxyPath } from '@mercuryworkshop/epoxy-transport';
 import playformCompress from '@playform/compress';
 import { uvPath } from '@titaniumnetwork-dev/ultraviolet';
@@ -26,10 +26,7 @@ export default defineConfig({
             SVG: true
         })
     ],
-    output: 'server',
-    adapter: node({
-        mode: 'middleware'
-    }),
+    output: 'static',
     experimental: {
         env: {
             schema: {

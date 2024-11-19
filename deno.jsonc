@@ -5,8 +5,9 @@
     "dev:server": "deno run -A --watch server/server.ts",
     "dev:client": "astro dev",
     "dev": "deno task dev:server & deno task dev:client",
-    "build": "astro build",
-    "start": "deno run --allow-net server/server.ts"
+    "build": "astro check && astro build",
+    "start": "deno run --allow-net --allow-read --allow-env --allow-ffi --allow-sys server/server.ts",
+    "start:standalone": "deno run --allow-net --allow-read --allow-env server/standalone.ts"
   },
   "imports": {
       // Astro deps

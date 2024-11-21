@@ -27,11 +27,11 @@ app.use(masqrAuth({
         return masqr.fail(ctx)
     },
     //Same with these.
-    validate: (ctx, key, host) => {
-        return masqr.verifyUser(ctx, key, host);
+    validate: async (ctx, key, host) => {
+        return await masqr.verifyUser(ctx, key, host);
     },
-    refCheck: (ctx) => {
-        return masqr.refCheck(ctx);
+    refCheck: async (ctx) => {
+        return await masqr.refCheck(ctx);
     }
 }));
 

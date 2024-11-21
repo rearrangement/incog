@@ -16,7 +16,7 @@ await app.register(fastifyCookie, {
 });
 if (Deno.env.get('MASQR') === 'true') {
     await app.register(masqr, {
-        deniedFilePath: `${Deno.cwd()}/server/denied.html`,
+        deniedFilePath: `${Deno.cwd()}/server/deniedFiles/denied.html`,
         unlockedPaths: ['/wisp/'],
         whiteListedURLs: [],
         masqrUrl: 'https://corlink.example.com/validate?license=',

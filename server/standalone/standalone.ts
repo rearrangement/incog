@@ -12,7 +12,7 @@ const options: MasqrOptions = {
     unlockedPaths: [],
     whitelistedURLS: ['incog.works'],
     masqrURL: "https://license.mercurywork.shop/validate?license=",
-    cookieSecret: Deno.env.get('COOKIE-SECRET') || 'e'
+    cookieSecret: 'thisisnotsecurpleasesetsomething1234'
 }
 
 const masqr = new Masqr(options);
@@ -30,8 +30,8 @@ app.use(masqrAuth({
     validate: async (ctx, key, host) => {
         return await masqr.verifyUser(ctx, key, host);
     },
-    refCheck: async (ctx) => {
-        return await masqr.refCheck(ctx);
+    check: async (ctx) => {
+        return await masqr.userLoggedIn(ctx);
     }
 }));
 

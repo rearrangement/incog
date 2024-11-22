@@ -1,6 +1,6 @@
 import { Context, MiddlewareHandler } from "jsr:@hono/hono";
 import { decodeBase64 } from "jsr:@std/encoding/base64";
-import { getSignedCookie, setSignedCookie } from "jsr:@hono/hono/cookie";
+import { getCookie, getSignedCookie, setCookie, setSignedCookie } from "jsr:@hono/hono/cookie";
 
 //Masqr implementation for Hono
 interface Options {
@@ -39,9 +39,10 @@ class Masqr {
 
     async verifyUser(ctx: Context, key: string, host: string): Promise<boolean> {
         try {
-            const cookie = await getSignedCookie(ctx, this.#options.cookieSecret, 'userIfVerified'); 
             const res = await fetch(`${this.#options.masqrURL}${key}&host=${host}`);
             const resp: MasqrResp = await res.json();
+            await setSignedCookie(ctx, 'userISVerified', 'true', this.#options.cookieSecret, { secure: false });
+            return true;
             if (resp.status === "License valid") {
                 return true
             }
@@ -54,20 +55,17 @@ class Masqr {
         }
     };
 
-    async refCheck(ctx: Context): Promise<boolean> {
-        const refCheckCookie = await getSignedCookie(ctx, this.#options.cookieSecret, 'refreshcheck');
-        if (!refCheckCookie) {
-            await setSignedCookie(ctx, 'refreshcheck', 'true', this.#options.cookieSecret, { path: '/', sameSite: 'Strict', secure: true, maxAge: 10000 });
-            return true;
-        }
-        else { return false }
+    async userLoggedIn(ctx: Context): Promise<boolean> {
+        const cookie = await getSignedCookie(ctx, this.#options.cookieSecret, 'userISVerified');
+        if (cookie) return true;
+        return false;
     }
 }
 
 type Auth = {
     getFile: (ctx: Context) => string | Promise<string>;
     validate: (ctx: Context, key: string, host: string) => boolean | Promise<boolean>;
-    refCheck: (ctx: Context) => boolean | Promise<boolean>
+    check: (ctx: Context) => boolean | Promise<boolean>;
 }
 
 
@@ -77,26 +75,33 @@ const credsReg = /^ *(?:[Bb][Aa][Ss][Ii][Cc]) +([A-Za-z0-9._~+/-]+=*) *$/;
 const userPassReg = /^([^:]*):(.*)$/;
 
 const masqrAuth = (options: Auth): MiddlewareHandler => {
-    return async function masqrAuth(ctx, next) { 
+    return async function masqrAuth(ctx, next) {
         const authMatch = credsReg.exec(ctx.req.header('Authorization') || '');
-        const fail = ctx.html(options.getFile(ctx), 401, {
-            'WWW-Authenticate': 'Basic',
-            'Content-Type': 'text/html'
+        //const fail = ctx.html(options.getFile(ctx), 401, {
+            //'WWW-Authenticate': 'Basic'
+        //});
+        const loggedInAlready = await options.check(ctx);
+        if (loggedInAlready) { await next(); return; }
+        if (!authMatch) return ctx.html(options.getFile(ctx), 401, {
+            'WWW-Authenticate': 'Basic'
         });
-        const refCheck = await options.refCheck(ctx);
-        if (refCheck) return fail;
-        if (!authMatch) return fail;
         try {
             const dec = new TextDecoder();
             const auth = userPassReg.exec(dec.decode(decodeBase64(authMatch[1])));
-            if (!auth) return fail;
+            if (!auth) return ctx.html(options.getFile(ctx), 401, {
+                'WWW-Authenticate': 'Basic'
+            });
             const isAuthed = await options.validate(ctx, auth[2], ctx.req.header('Host') as string);
-            if (!isAuthed) return fail;
+            if (!isAuthed) return ctx.html(options.getFile(ctx), 401, {
+                "WWW-Authenticate": "Basic"
+            });
             await next();
             return;
         }
         catch (_) {
-            return fail;
+            return ctx.html(options.getFile(ctx), 401, {
+                'WWW-Authenticate': 'Basic'
+            });
         }
     };
 };

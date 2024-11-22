@@ -41,7 +41,6 @@ class Masqr {
         try {
             const res = await fetch(`${this.#options.masqrURL}${key}&host=${host}`);
             const resp: MasqrResp = await res.json();
-            await setSignedCookie(ctx, 'userISVerified', 'true', this.#options.cookieSecret, { secure: false });
             return true;
             if (resp.status === "License valid") {
                 return true
@@ -54,12 +53,6 @@ class Masqr {
             return false
         }
     };
-
-    async userLoggedIn(ctx: Context): Promise<boolean> {
-        const cookie = await getSignedCookie(ctx, this.#options.cookieSecret, 'userISVerified');
-        if (cookie) return true;
-        return false;
-    }
 }
 
 type Auth = {
@@ -77,11 +70,6 @@ const userPassReg = /^([^:]*):(.*)$/;
 const masqrAuth = (options: Auth): MiddlewareHandler => {
     return async function masqrAuth(ctx, next) {
         const authMatch = credsReg.exec(ctx.req.header('Authorization') || '');
-        //const fail = ctx.html(options.getFile(ctx), 401, {
-            //'WWW-Authenticate': 'Basic'
-        //});
-        const loggedInAlready = await options.check(ctx);
-        if (loggedInAlready) { await next(); return; }
         if (!authMatch) return ctx.html(options.getFile(ctx), 401, {
             'WWW-Authenticate': 'Basic'
         });

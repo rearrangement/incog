@@ -2,9 +2,12 @@
   "name": "incognito",
   "version": "1.0.0",
   "dependencies": {
-      "@deno/astro-adapter": "^0.1.5",      
+      "@deno/astro-adapter": "^0.1.5",
+      "@deno/vite-plugin": "^1.0.2",      
       "@iconify-json/fa-solid": "^1.1.8",
       "@iconify-json/fa6-solid": "^1.1.21",
-      "@iconify-json/mdi": "^1.2.1"
+      "@iconify-json/mdi": "^1.2.1",
+      "@types/deno": "^2.0.0",
+      "typescript": "^5.7.2"
   }
 }

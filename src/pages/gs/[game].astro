@@ -44,8 +44,6 @@ export const getStaticPaths = (async () => {
     </div>
     <script>
         import { initServiceWorker } from "@scripts/serviceWorker.ts";
-        import { RammerheadEncode } from "@rubynetwork/rammerhead-browser";
-        import { RAMMERHEAD_PREFIX } from "astro:env/client";
         document.addEventListener("DOMContentLoaded", () => {
             initServiceWorker().then(() => { console.log('Service worker active!') });
         })
@@ -58,14 +56,7 @@ export const getStaticPaths = (async () => {
             if (localStorage.getItem("incog||proxy") === "uv") {
                 console.log(url)
                 url = __uv$config!.prefix + __uv$config.encodeUrl!(term)
-            } else if (localStorage.getItem("incog||proxy") === "rh") {
-               if (RAMMERHEAD_PREFIX !== '') {
-                    url = await RammerheadEncode(term, RAMMERHEAD_PREFIX)
-                }
-                else {
-                    url = await RammerheadEncode(term)
-                }
-            }
+            } else if (localStorage.getItem("incog||proxy") === "sj") {}
             const iframe = document.getElementById("gameIframe-py") as HTMLIFrameElement
             iframe.src = url as string || "/load";
             if (!iframe) {

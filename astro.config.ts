@@ -8,6 +8,7 @@ import icon from 'astro-icon';
 import robotsTxt from 'astro-robots-txt';
 import { defineConfig, envField } from 'astro/config';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import deno from "@deno/vite-plugin";
 
 // https://astro.build/config
 export default defineConfig({
@@ -26,19 +27,18 @@ export default defineConfig({
         })
     ],
     output: 'static',
-    experimental: {
-        env: {
-            schema: {
-                GAMES_LINK: envField.boolean({
-                    context: 'client',
-                    access: 'public',
-                    default: true
-                })
-            }
+    env: {
+        schema: {
+            GAMES_LINK: envField.boolean({
+                context: 'client',
+                access: 'public',
+                default: true
+            })
         }
     },
     vite: {
         plugins: [
+            deno(),
             viteStaticCopy({
                 targets: [
                     {

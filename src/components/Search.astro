@@ -17,24 +17,15 @@ import FrameManager from '@components/FrameManager.astro';
         <div id="search-suggestions" class="hidden w-full flex flex-col"></div>
     </div>
     <script>
-        import { RAMMERHEAD_PREFIX } from 'astro:env/client';
         import { BareClient } from "@mercuryworkshop/bare-mux";
         //simple script I wrote so I don't have to repeat myself (located at: src/ts/serviceWorker.ts)
         import { initServiceWorker } from "@scripts/serviceWorker.ts";
-        import { RammerheadEncode } from "@rubynetwork/rammerhead-browser";
         //sets the style of the iframe and enables the little panel at the top
         async function prox(term: string) {
             let url;
             if (localStorage.getItem("incog||proxy") === "uv") {
                 url = __uv$config!.prefix + __uv$config.encodeUrl!(search(term, localStorage.getItem("incog||search") as string))
-            } else if (localStorage.getItem("incog||proxy") === "rh") {
-                if (RAMMERHEAD_PREFIX !== '') {
-                    url = await RammerheadEncode(search(term, localStorage.getItem("incog||search") as string), RAMMERHEAD_PREFIX)
-                }
-                else {
-                    url = await RammerheadEncode(search(term, localStorage.getItem("incog||search") as string))
-                }
-            }
+            } else if (localStorage.getItem("incog||proxy") === "sj") {}
             const iframe = document.getElementById("iframe") as HTMLIFrameElement;
             const frameManager = document.getElementById("framemanager") as HTMLElement;
             frameManager.classList.remove("hidden");

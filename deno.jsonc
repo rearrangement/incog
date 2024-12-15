@@ -37,7 +37,6 @@
       //UV, bare-mux, RH, corlink & wisp
       "@mercuryworkshop/bare-mux": "npm:@mercuryworkshop/bare-mux@^2.1.6",
       "@mercuryworkshop/epoxy-transport": "npm:@mercuryworkshop/epoxy-transport@^2.1.13",
-      "@rubynetwork/corlink-fastify": "npm:@rubynetwork/corlink-fastify@^2.0.2",
       "@titaniumnetwork-dev/ultraviolet": "npm:@titaniumnetwork-dev/ultraviolet@^3.2.10",
       "wisp-server-node": "npm:wisp-server-node@^1.1.7",
       //random other deps

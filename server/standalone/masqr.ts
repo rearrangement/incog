@@ -38,10 +38,12 @@ class Masqr {
     }
 
     async verifyUser(ctx: Context, key: string, host: string): Promise<boolean> {
+        if (this.#options.whitelistedURLS.includes(ctx.req.header('Host') as string)) return true;
+        if (this.#options.unlockedPaths.includes(ctx.req.header('Host') as string)) return true;
+        return true;
         try {
             const res = await fetch(`${this.#options.masqrURL}${key}&host=${host}`);
             const resp: MasqrResp = await res.json();
-            return true;
             if (resp.status === "License valid") {
                 return true
             }
@@ -58,7 +60,6 @@ class Masqr {
 type Auth = {
     getFile: (ctx: Context) => string | Promise<string>;
     validate: (ctx: Context, key: string, host: string) => boolean | Promise<boolean>;
-    check: (ctx: Context) => boolean | Promise<boolean>;
 }
 
 
@@ -70,6 +71,12 @@ const userPassReg = /^([^:]*):(.*)$/;
 const masqrAuth = (options: Auth): MiddlewareHandler => {
     return async function masqrAuth(ctx, next) {
         const authMatch = credsReg.exec(ctx.req.header('Authorization') || '');
+        console.log(authMatch);
+        const refCheck = getCookie(ctx, 'refreshcheck');
+        if (refCheck !== undefined || refCheck !== true) {
+            setCookie(ctx, 'refreshcheck', 'true')
+            ctx.html(options.getFile(ctx), 401);
+        }
         if (!authMatch) return ctx.html(options.getFile(ctx), 401, {
             'WWW-Authenticate': 'Basic'
         });

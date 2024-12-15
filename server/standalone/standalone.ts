@@ -29,9 +29,6 @@ app.use(masqrAuth({
     //Same with these.
     validate: async (ctx, key, host) => {
         return await masqr.verifyUser(ctx, key, host);
-    },
-    check: async (ctx) => {
-        return await masqr.userLoggedIn(ctx);
     }
 }));
 

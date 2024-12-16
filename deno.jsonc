@@ -40,6 +40,9 @@
       //random other deps
       "chalk": "npm:chalk@^5.3.0",
       "@types/node": "npm:@types/node@^22.9.0",
-      "gradient-string": "npm:gradient-string@^3.0.0"
+      "gradient-string": "npm:gradient-string@^3.0.0",
+      "@types/deno": "npm:@types/deno@^2.0.0",
+      "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.2",
+      "typescript": "npm:typescript@^5.7.2"
   }
 }

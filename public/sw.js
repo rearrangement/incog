@@ -7,13 +7,13 @@ self.addEventListener('fetch', function (event) {
         event.respondWith(
             (async function () {
                 return await uv.fetch(event);
-            })()
+            })(),
         );
     } else {
         event.respondWith(
             (async function () {
                 return await fetch(event.request);
-            })()
+            })(),
         );
     }
 });
@@ -25,5 +25,5 @@ assets = [
     '/transports/bareTransport.js',
     'sw.js',
     'uv.config.js',
-    'logo.svg'
+    'logo.svg',
 ];

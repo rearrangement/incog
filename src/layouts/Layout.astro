@@ -11,44 +11,68 @@ import SettingsLoader from '@components/settings/Loader.astro';
         <SettingsLoader transition:persist />
         <LoadScripts transition:persist />
         <SEO
-            title={title}
+            {title}
             titleTemplate="Incognito | %s"
             titleDefault="Incognito"
             description="Search the world wide web"
             charset="UTF-8"
-            openGraph = {{
+            openGraph={{
                 basic: {
-                    title: "Incognito",
-                    type: "website",
-                    url: "https://incog.works",
-                    image: "/logo.svg"
+                    title: 'Incognito',
+                    type: 'website',
+                    url: 'https://incog.works',
+                    image: '/logo.svg',
                 },
                 optional: {
-                    description: "Search the world wide web"
-                }
+                    description: 'Search the world wide web',
+                },
             }}
-            twitter = {{
-                card: "summary_large_image",
-                url: "https://incog.works",
-                title: "Incognito",
-                description: "Search the world wide web",
-                image: "/logo.svg",
-                imageAlt: "Incognito's logo"
+            twitter={{
+                card: 'summary_large_image',
+                url: 'https://incog.works',
+                title: 'Incognito',
+                description: 'Search the world wide web',
+                image: '/logo.svg',
+                imageAlt: "Incognito's logo",
             }}
-            extend = {{
+            extend={{
                 link: [
-                    { rel: "icon", type: "image/svg+xml", href: "/logo.svg", id: "favicon" },
-                    { rel: "sitemap", href: "/sitemap-index.xml" },
-                    { rel: "preconnect", href: "https://fonts.googleapis.com" },
-                    { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: true },
-                    { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" },
-                    { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" },
-                    { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" },
+                    {
+                        rel: 'icon',
+                        type: 'image/svg+xml',
+                        href: '/logo.svg',
+                        id: 'favicon',
+                    },
+                    { rel: 'sitemap', href: '/sitemap-index.xml' },
+                    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+                    {
+                        rel: 'preconnect',
+                        href: 'https://fonts.gstatic.com',
+                        crossorigin: true,
+                    },
+                    {
+                        rel: 'stylesheet',
+                        href:
+                            'https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap',
+                    },
+                    {
+                        rel: 'stylesheet',
+                        href:
+                            'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap',
+                    },
+                    {
+                        rel: 'stylesheet',
+                        href:
+                            'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap',
+                    },
                 ],
                 meta: [
-                    { name: "viewport", content: "width=device-width, initial-scale=1.0" },
-                    { name: "title", content: "Incognito" },
-                ]
+                    {
+                        name: 'viewport',
+                        content: 'width=device-width, initial-scale=1.0',
+                    },
+                    { name: 'title', content: 'Incognito' },
+                ],
             }}
         />
         <ClientRouter fallback="animate" />
@@ -56,13 +80,13 @@ import SettingsLoader from '@components/settings/Loader.astro';
     <body class="w-full h-screen min-h-screen text-[--text-color]">
         <style is:global>
             * {
-                scrollbar-width:thin;
-                scrollbar-color:var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+                scrollbar-width: thin;
+                scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
                 font-family: var(--font-family);
             }
             :root {
-                --border-color: rgb(255, 255, 255, .2);
-                --text-color: #FFF;
+                --border-color: rgb(255, 255, 255, 0.2);
+                --text-color: #fff;
                 --header-background: inherit;
                 --accent: mediumseagreen;
                 --scrollbar-thumb-color: rgb(52, 184, 116, 0.3);
@@ -80,59 +104,64 @@ import SettingsLoader from '@components/settings/Loader.astro';
                 background: var(--scrollbar-thumb-color);
             }
             .morning {
-                --background: #FFF;
-                --header-background: #FFF;
+                --background: #fff;
+                --header-background: #fff;
                 --header-shadow: rgba(0, 0, 0, 0.1) 0px 5px 10px 0px;
-                --border-color: rgb(0, 0, 0, .2);
+                --border-color: rgb(0, 0, 0, 0.2);
                 --text-color: #343434;
                 --accent: dodgerblue;
                 --scrollbar-thumb-color: rgb(32, 148, 252, 0.3);
                 --scrollbar-track-color: rgb(32, 148, 252, 0.1);
             }
             .resilient {
-                --border-color: rgb(255, 255, 255, .2);
-                --text-color: #FFF;
-                --header-background: #185ADB;
-                --accent: #FFC947;
+                --border-color: rgb(255, 255, 255, 0.2);
+                --text-color: #fff;
+                --header-background: #185adb;
+                --accent: #ffc947;
                 --scrollbar-thumb-color: rgb(255, 176, 68, 0.3);
                 --scrollbar-track-color: rgb(255, 176, 68, 0.1);
-                --background:#0A1931;
+                --background: #0a1931;
             }
             .terminal {
-                --border-color: rgb(255, 255, 255, .2);
-                --text-color: #FFF;
+                --border-color: rgb(255, 255, 255, 0.2);
+                --text-color: #fff;
                 --header-background: #000;
                 --accent: mediumseagreen;
                 --scrollbar-thumb-color: rgb(52, 184, 116, 0.3);
                 --scrollbar-track-color: rgb(52, 184, 116, 0.1);
                 --font-family: Ubuntu Mono;
-                --background:#000;
+                --background: #000;
             }
             .midnight {
-                --border-color:rgb(255, 255, 255, .2);
+                --border-color: rgb(255, 255, 255, 0.2);
                 --header-background: #181818;
-                --text-color: #FFF;
+                --text-color: #fff;
                 --accent: dodgerblue;
                 --background: #121212;
                 --scrollbar-thumb-color: rgb(32, 148, 252, 0.3);
                 --scrollbar-track-color: rgb(32, 148, 252, 0.1);
             }
             .space {
-                --border-color:rgb(255, 255, 255, .2);
+                --border-color: rgb(255, 255, 255, 0.2);
                 --header-background: #181818;
-                --text-color: #FFF;
-                --accent: #FFF;
+                --text-color: #fff;
+                --accent: #fff;
                 --background: #0f0c29;
                 --scrollbar-thumb-color: rgb(255, 255, 255, 0.3);
                 --scrollbar-track-color: rgb(255, 255, 255, 0.1);
-                background: -webkit-linear-gradient(19deg, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
+                background: -webkit-linear-gradient(
+                    19deg,
+                    #24243e,
+                    #302b63,
+                    #0f0c29
+                ); /* Chrome 10-25, Safari 5.1-6 */
                 background: linear-gradient(19deg, #24243e, #302b63, #0f0c29);
-                background-repeat:no-repeat;
-                background-attachment:fixed;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
                 background-size: cover;
                 background-position: center;
             }
         </style>
-        <slot transition:animate={"slide"} /> 
+        <slot transition:animate={'slide'} />
     </body>
 </html>

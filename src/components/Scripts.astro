@@ -1,10 +1,10 @@
 <script>
-    import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
-    const conn = new BareMuxConnection("/baremux/worker.js");
+    import { BareMuxConnection } from '@mercuryworkshop/bare-mux';
+    const conn = new BareMuxConnection('/baremux/worker.js');
     //load all of the scripts required to use uv/rh (this is not loaded by default due to the size)
     //Usage: await window.loadProxyScripts or window.loadProxyScript.then(() => {})
-    window.loadProxyScripts = async function() {
-        await window.setTransport(localStorage.getItem("incog||transport") || "epoxy");
+    window.loadProxyScripts = async function () {
+        await window.setTransport(localStorage.getItem('incog||transport') || 'epoxy');
         return new Promise<void>((resolve) => {
             const uvBundle = document.createElement('script');
             uvBundle.src = '/uv/uv.bundle.js';
@@ -15,37 +15,38 @@
             uvConfig.defer = true;
             document.body.appendChild(uvConfig);
             const search = document.createElement('script');
-            search.src = "/search.js";
+            search.src = '/search.js';
             search.defer = true;
             document.body.appendChild(search);
             const checkScripts = setInterval(() => {
                 //If both of these aren't defined this will repeat until they are
                 //this allows use to wait for all of the scripts to be ready *before* we setup the serviceworker
-                if (typeof __uv$config !== "undefined") {
+                if (typeof __uv$config !== 'undefined') {
                     clearInterval(checkScripts);
                     resolve();
                 }
             }, 100);
-        })
-    }
+        });
+    };
     //function to set a transport between the *defined* transports
     //Usage: await window.setTransport("epoxy") or window.setTransport("epoxy").then(() => {})
-    window.setTransport = function(transport: string) {
+    window.setTransport = function (transport: string) {
         return new Promise<void>((resolve) => {
-            localStorage.setItem("incog||transport", transport);
-            const wispUrl = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
-            switch(transport) {
-                case "epoxy":
-                    conn.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
+            localStorage.setItem('incog||transport', transport);
+            const wispUrl = (location.protocol === 'https:' ? 'wss://' : 'ws://') +
+                location.host + '/wisp/';
+            switch (transport) {
+                case 'epoxy':
+                    conn.setTransport('/epoxy/index.mjs', [{ wisp: wispUrl }]);
                     break;
-                case "libcurl":
-                    conn.setTransport("/libcurl/index.mjs", [{ wisp: wispUrl }]);
+                case 'libcurl':
+                    conn.setTransport('/libcurl/index.mjs', [{ wisp: wispUrl }]);
                     break;
                 default:
-                    conn.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
+                    conn.setTransport('/epoxy/index.mjs', [{ wisp: wispUrl }]);
             }
             resolve();
-        })
+        });
         //the promise here is to really make everything look the same even though most of this is synchronous code
-    }
+    };
 </script>

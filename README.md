@@ -1,5 +1,5 @@
 <div align="center">
-         
+
 <img src="https://socialify.git.ci/titaniumnetwork-dev/incognito/image?description=1&font=Inter&forks=1&issues=1&language=1&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Dark" alt="ruby" width="640" height="320" />
 
 <img alt="repo size" src="https://img.shields.io/github/repo-size/titaniumnetwork-dev/incognito?style=for-the-badge"></img>
@@ -26,9 +26,10 @@
 
 ## NOTE:
 
--   For Cyclic users this will unfortunatley *not* work due to Cyclic supporting very little languages
--   This will **NOT** deploy on Github Pages, Netlify, Vercel, Gitlab Pages or any other _static_ host
--   This will **NOT** work on Render
+- For Cyclic users this will unfortunatley _not_ work due to Cyclic supporting very little languages
+- This will **NOT** deploy on Github Pages, Netlify, Vercel, Gitlab Pages or any other _static_ host
+- This will **NOT** work on Render
+
 ---
 
 ## How to get links
@@ -41,9 +42,10 @@
 
 - Lots and lots of games
 
--   Multiple Proxy "Backends":
-    -   [Ultraviolet](https://github.com/titaniumnetwork-dev/ultraviolet)
-    -   [RammerHead](https://github.com/binary-person/rammerhead)
+- Multiple Proxy "Backends":
+  - [Ultraviolet](https://github.com/titaniumnetwork-dev/ultraviolet)
+  - [RammerHead](https://github.com/binary-person/rammerhead)
+
 ---
 
 ## Contributors
@@ -51,24 +53,30 @@
 - [MotorTruck1221](https://motortruck1221.com) - Maintainer
 - [Rifting](https://github.com/rifting) - Maintainer
 - [caracal-js](https://github.com/caracal-js) - Original Creator
+
 ---
 
 ## Tech Stack
 
--   [Astro](https://astro.build)
--   [Fastify](https://fastify.dev)
--   [Bare Server Node](https://github.com/tomphttp/bare-server-node)
--   [Ultraviolet](https://github.com/titaniumnetwork-dev/ultraviolet)
--   [RammerHead](https://github.com/binary-person/rammerhead)
--   [Epoxy](https://github.com/mercuryworkshop/epoxy-tls)
--   HTML, CSS, and JavaScript (DUH)
+- [Astro](https://astro.build)
+- [Fastify](https://fastify.dev)
+- [Bare Server Node](https://github.com/tomphttp/bare-server-node)
+- [Ultraviolet](https://github.com/titaniumnetwork-dev/ultraviolet)
+- [RammerHead](https://github.com/binary-person/rammerhead)
+- [Epoxy](https://github.com/mercuryworkshop/epoxy-tls)
+- HTML, CSS, and JavaScript (DUH)
+
 ---
 
 ## Roadmap
 
-- [ ] - [i18n](https://github.com/alexandre-fernandez/astro-i18n)
-- [ ] - More themes
-- [ ] - Other transports
+-
+  - [ ] [i18n](https://github.com/alexandre-fernandez/astro-i18n)
+-
+  - [ ] More themes
+-
+  - [ ] Other transports
+
 ---
 
 ## Deployment
@@ -76,144 +84,163 @@
 ### Terminal
 
 Prerequisites:
+
 - Node & npm
 - Git
 
 1. Clone the repo:
+
 ```bash
 git clone https://github.com/titaniumnetwork-dev/incognito && cd incognito
 ```
 
 2. Install all of the dependencies:
+
 ```bash
 npm i
 ```
 
 3. Create a .env file
+
 ```bash
 cp .env.example .env
 ```
 
 4. Modify the .env file to you liking (docs [here](#environment))
+
 ```
 nano .env
 ```
 
 5. Build the frontend:
+
 ```bash
 npm run build
 ```
 
 6. Start the server
+
 ```bash
 npm start
 ```
 
 > [!NOTE]
 > You can run `npm run bstart` to build and start together
+
 ---
 
 ### Games
 
 - By default, games are reverse proxied by the server
-    - Game assets are located [here](https://github.com/ruby-network/ruby-assets)
+  - Game assets are located [here](https://github.com/ruby-network/ruby-assets)
 - To turn off Games, and access to them see [#environment](#environment)
-
 
 ### Docker
 
 - There are two ways to deploy with docker:
-    - [Normal docker](#normal-docker)
-    - [Docker Compose](#docker-compose)
+  - [Normal docker](#normal-docker)
+  - [Docker Compose](#docker-compose)
 
 #### Normal Docker
 
 Prerequisites:
+
 - Git
 - Docker
 
 1. Clone the repo (skip if using prebuilt image):
+
 ```bash
 git clone https://github.com/titaniumnetwork/incognito && cd incognito
 ```
 
 2. Create an .env file (if using prebuilt image, copy the example from the repo):
+
 ```bash
 cp .env.example .env
 ```
 
 3. Modify the .env file to your liking (docs [here](#environment))
+
 ```bash
 nano .env
 ```
 
 4. Build the docker image (skip if using prebuilt):
+
 ```bash
 docker build --build-arg BARE_SERVER_OPTION=true GAMES_LINK=true RAMMERHEAD_OPTION=true -t incog:latest
 ```
+
 For info on the build arg check [here](#environment)
 
 5. Run the docker images:
 
-    - Prebuilt:
-    ```bash
-    docker run --env-file ./.env motortruck1221/incognito:latest
-    ```
-    - Image you built yourself:
-    ```bash
-    docker run --env-file ./.env incog:latest
-    ```
+   - Prebuilt:
+   ```bash
+   docker run --env-file ./.env motortruck1221/incognito:latest
+   ```
+   - Image you built yourself:
+   ```bash
+   docker run --env-file ./.env incog:latest
+   ```
 
 #### Docker Compose
 
 Prerequisites:
+
 - Git
 - Docker w/compose
 
 1. Clone the repo (skip if using prebuilt image):
+
 ```bash
 git clone https://github.com/titaniumnetwork-dev/incognito
 ```
 
 2. Create an .env file (if using prebuilt image, copy the example from the repo):
+
 ```bash
 cp .env.example .env
 ```
 
 3. Modify the .env file to your liking (docs on that [here](#environment)]
+
 ```bash
 nano .env
 ```
 
 4. Build the docker image (skip if using prebuilt):
+
 ```bash
 docker compose -f ./docker-compose.build.yml build
 ```
 
 5. Run the docker image:
 
-    - Prebuilt:
-    ```bash
-    docker compose up
-    ```
-    - Image you built yourself:
-    ```bash
-    docker compose -f ./docker-compose.build.yml up
-    ```
+   - Prebuilt:
+   ```bash
+   docker compose up
+   ```
+   - Image you built yourself:
+   ```bash
+   docker compose -f ./docker-compose.build.yml up
+   ```
+
 ---
 
 ## Environment
 
 - There are a couple of environment variables for incognito. Most of the time, the defaults are fine, but there are instances where you may not want certain options enabled or certain things running.
 
-| Variable               | Description                                                                                              | Default |
-|------------------------|----------------------------------------------------------------------------------------------------------|---------|
-| `MASQR`                | Enables (`true`)/Disables (`false`) Masqr (most people don't want this)                                   | `false` |
-| `BARE_SERVER_ENABLED`  | Enables (`true`)/Disables (`false`) the integrated bare server. Use this if you already have a server (e.g., reverse proxy) or don't want users accessing it. | `true`  |
-| `PORT`                 | The port that the server listens on ***IGNORED IN THE DOCKER ENVIRONMENTS***                              | `8080` |
-| `GAMES` | Disable (`false`)/Enable (`true`) the reverse proxy for Games | `true` |
-| `RAMMERHEAD_SERVER_ENABLED` | Disable (`false`)/Enabled (`true`) the integrated Rammerhead server | `true` |
-| `SITE` | Your websites domain (eg: https://example.com) | `http://localhost:8080` |
-| `BARE_SERVER_OPTION`   | Enables (`true`)/Disables (`false`) the option to use a bare server in the frontend. ***THIS IS A BUILD TIME ONLY VARIABLE*** | `true`  |
-| `GAMES_LINK` | Enables (`true`)/Disables (`false`) access to the games page ***BUILD TIME ONLY*** | `true` |
-| `RAMMERHEAD_OPTION` | Enabled (`true`)/Disables (`false`) the option to use Rammerhead in the frontend. ***BUILD TIME ONLY*** | `true` |
+| Variable                    | Description                                                                                                                                                   | Default                 |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| `MASQR`                     | Enables (`true`)/Disables (`false`) Masqr (most people don't want this)                                                                                       | `false`                 |
+| `BARE_SERVER_ENABLED`       | Enables (`true`)/Disables (`false`) the integrated bare server. Use this if you already have a server (e.g., reverse proxy) or don't want users accessing it. | `true`                  |
+| `PORT`                      | The port that the server listens on _**IGNORED IN THE DOCKER ENVIRONMENTS**_                                                                                  | `8080`                  |
+| `GAMES`                     | Disable (`false`)/Enable (`true`) the reverse proxy for Games                                                                                                 | `true`                  |
+| `RAMMERHEAD_SERVER_ENABLED` | Disable (`false`)/Enabled (`true`) the integrated Rammerhead server                                                                                           | `true`                  |
+| `SITE`                      | Your websites domain (eg: https://example.com)                                                                                                                | `http://localhost:8080` |
+| `BARE_SERVER_OPTION`        | Enables (`true`)/Disables (`false`) the option to use a bare server in the frontend. _**THIS IS A BUILD TIME ONLY VARIABLE**_                                 | `true`                  |
+| `GAMES_LINK`                | Enables (`true`)/Disables (`false`) access to the games page _**BUILD TIME ONLY**_                                                                            | `true`                  |
+| `RAMMERHEAD_OPTION`         | Enabled (`true`)/Disables (`false`) the option to use Rammerhead in the frontend. _**BUILD TIME ONLY**_                                                       | `true`                  |

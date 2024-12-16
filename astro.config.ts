@@ -11,7 +11,7 @@ import robotsTxt from 'astro-robots-txt';
 import { defineConfig, envField } from 'astro/config';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 //we need the buildOpts from here : D
-import { parsedDoc } from "./server/config/config.ts";
+import { parsedDoc } from './server/config/config.ts';
 
 // https://astro.build/config
 export default defineConfig({
@@ -26,8 +26,8 @@ export default defineConfig({
             HTML: true,
             Image: true,
             JavaScript: true,
-            SVG: true
-        })
+            SVG: true,
+        }),
     ],
     output: 'static',
     env: {
@@ -35,9 +35,9 @@ export default defineConfig({
             GAMES_LINK: envField.boolean({
                 context: 'client',
                 access: 'public',
-                default: parsedDoc.buildOpts.games
-            })
-        }
+                default: parsedDoc.buildOpts.games,
+            }),
+        },
     },
     vite: {
         plugins: [
@@ -46,25 +46,25 @@ export default defineConfig({
                     {
                         src: `${uvPath}/**/*`.replace(/\\/g, '/'),
                         dest: 'uv',
-                        overwrite: false
+                        overwrite: false,
                     },
                     {
                         src: `${epoxyPath}/**/*`.replace(/\\/g, '/'),
                         dest: 'epoxy',
-                        overwrite: false
+                        overwrite: false,
                     },
                     {
                         src: `${libcurlPath}/**/*`.replace(/\\/g, '/'),
                         dest: 'libcurl',
-                        overwrite: false
+                        overwrite: false,
                     },
                     {
                         src: `${baremuxPath}/**/*`.replace(/\\/g, '/'),
                         dest: 'baremux',
-                        overwrite: false
-                    }
-                ]
-            })
+                        overwrite: false,
+                    },
+                ],
+            }),
         ],
         server: {
             proxy: {
@@ -72,16 +72,16 @@ export default defineConfig({
                     target: 'wss://ruby.rubynetwork.co/wisp/',
                     changeOrigin: true,
                     ws: true,
-                    rewrite: (path) => path.replace(/^\/wisp\//, '')
+                    rewrite: (path) => path.replace(/^\/wisp\//, ''),
                 },
                 '/gms/': {
                     target: 'https://rawcdn.githack.com/ruby-network/ruby-assets/main/',
                     changeOrigin: true,
                     ws: true,
                     secure: false,
-                    rewrite: (path) => path.replace(/^\/gms\//, '')
-                }
-            }
-        }
-    }
+                    rewrite: (path) => path.replace(/^\/gms\//, ''),
+                },
+            },
+        },
+    },
 });

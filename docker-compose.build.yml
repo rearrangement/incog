@@ -11,7 +11,5 @@ services:
         ports:
             # The ports work like this: Host:Container (DO NOT MODIFY THE CONTAINER PORT)
             - '8081:8000'
-        #Extra stuff for advanced users below
-        #Change the command to build AND start:
-        #command:
-        #  - bstart
+        volumes:
+          - ./config.toml:/app/config.toml

@@ -1,13 +1,16 @@
 {
-  "$schema": "https://deno.land/x/deno@v2.0.6/cli/schemas/config-file.v1.json",
+  "$schema": "https://deno.land/x/deno@v2.1.4/cli/schemas/config-file.v1.json",
   "nodeModulesDir": "auto",
   "tasks": {
     "dev:server": "deno run -A --watch server/server.ts",
     "dev:client": "astro dev",
     "dev": "deno task dev:server & deno task dev:client",
-    "build": "astro check && astro build",
+    "build": "deno task check:frontend && astro build",
     "start": "deno run --allow-net --allow-read --allow-env --allow-ffi --allow-sys server/server.ts",
-    "start:standalone": "deno run --allow-net --allow-read --allow-env server/standalone/standalone.ts"
+    "start:standalone": "deno run --allow-net --allow-read --allow-env server/standalone/standalone.ts",
+    "check:frontend": "astro check",
+    "check:server": "deno check server/**/*.ts",
+    "check": "deno task check:frontend && deno task check:server"
   },
   "imports": {
       // Astro deps
@@ -40,10 +43,10 @@
       "wisp-server-node": "npm:wisp-server-node@^1.1.7",
       //random other deps
       "chalk": "npm:chalk@^5.3.0",
+      "smol-toml": "npm:smol-toml@^1.3.1",
       "@types/node": "npm:@types/node@^22.9.0",
       "gradient-string": "npm:gradient-string@^3.0.0",
       "@types/deno": "npm:@types/deno@^2.0.0",
-      "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.2",
       "typescript": "npm:typescript@^5.7.2" //I need this for astro typechecking for some damn reason
   }
 }

@@ -6,6 +6,7 @@ import fastifyStatic from '@fastify/static';
 import Fastify from 'fastify';
 import { serverFactory } from './serverFactory.ts';
 import { listeningMessage } from "./message.ts";
+import { parsedDoc } from "./config/config.ts";
 
 const app = Fastify({ logger: false, serverFactory: serverFactory });
 
@@ -26,7 +27,7 @@ await app.register(fastifyHttpProxy, {
     http2: false
 });
 
-const port = parseInt(Deno.env.get('PORT') as string) || 8000;
+const port = parseInt(Deno.env.get('PORT') as string) || parsedDoc.server.port || 8000;
 
 app.listen({ port: port, host: '0.0.0.0' }).then(() => {
     listeningMessage(port, "fastify");

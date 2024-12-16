@@ -10,7 +10,8 @@ import icon from 'astro-icon';
 import robotsTxt from 'astro-robots-txt';
 import { defineConfig, envField } from 'astro/config';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
-import deno from "@deno/vite-plugin";
+//we need the buildOpts from here : D
+import { parsedDoc } from "./server/config/config.ts";
 
 // https://astro.build/config
 export default defineConfig({
@@ -34,13 +35,12 @@ export default defineConfig({
             GAMES_LINK: envField.boolean({
                 context: 'client',
                 access: 'public',
-                default: true
+                default: parsedDoc.buildOpts.games
             })
         }
     },
     vite: {
         plugins: [
-            deno(),
             viteStaticCopy({
                 targets: [
                     {
@@ -73,12 +73,6 @@ export default defineConfig({
                     changeOrigin: true,
                     ws: true,
                     rewrite: (path) => path.replace(/^\/wisp\//, '')
-                },
-                '/bare/': {
-                    target: 'https://ruby.rubynetwork.co/bare/',
-                    changeOrigin: true,
-                    ws: true,
-                    rewrite: (path) => path.replace(/^\/bare\//, '')
                 },
                 '/gms/': {
                     target: 'https://rawcdn.githack.com/ruby-network/ruby-assets/main/',

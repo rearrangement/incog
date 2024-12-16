@@ -8,7 +8,7 @@
         "indentStyle": "space",
         "indentWidth": 4,
         "lineWidth": 100,
-        "ignore": ["pnpm-lock.yaml", "package.json"]
+        "ignore": ["pnpm-lock.yaml", "package.json", "deno.lock"]
     },
     "organizeImports": { "enabled": true },
     "linter": { "enabled": false },

@@ -12,6 +12,19 @@
     "check:server": "deno check server/**/*.ts",
     "check": "deno task check:frontend && deno task check:server"
   },
+  "fmt": {
+      "indent-width": 4,
+      "line-width": 100,
+      "no-semicolons": false,
+      "prose-wrap": "preserve",
+      "single-quote": true,
+      "untstable-component": true,
+      "unstable-css": false,
+      "unstable-html": false,
+      "unstable-yaml": false,
+      "unstable-sql": false,
+      "use-tabs": false
+  },
   "imports": {
       // Astro deps
       "@astrojs/check": "npm:@astrojs/check@^0.9.4",

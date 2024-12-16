@@ -1,6 +1,6 @@
 import { createServer } from 'node:http';
 import { Socket } from "node:net";
-import { FastifyRequest, type FastifyServerFactory, FastifyServerFactoryHandler, RawServerDefault } from "npm:fastify";
+import { type FastifyServerFactory, FastifyServerFactoryHandler, RawServerDefault } from "npm:fastify";
 import wisp from 'npm:wisp-server-node';
 import { parsedDoc } from "./config/config.ts";
 

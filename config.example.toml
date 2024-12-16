@@ -1,0 +1,6 @@
+[buildOpts]
+games = false
+
+[server]
+wisp = true
+port = 8000

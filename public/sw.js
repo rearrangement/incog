@@ -1,5 +1,3 @@
-importScripts('/epoxy/index.js');
-importScripts('/transports/bareTransport.js');
 importScripts('/uv/uv.bundle.js');
 importScripts('/uv/uv.config.js');
 importScripts(__uv$config.sw || '/uv/uv.sw.js');
@@ -9,13 +7,13 @@ self.addEventListener('fetch', function (event) {
         event.respondWith(
             (async function () {
                 return await uv.fetch(event);
-            })()
+            })(),
         );
     } else {
         event.respondWith(
             (async function () {
                 return await fetch(event.request);
-            })()
+            })(),
         );
     }
 });
@@ -27,5 +25,5 @@ assets = [
     '/transports/bareTransport.js',
     'sw.js',
     'uv.config.js',
-    'logo.svg'
+    'logo.svg',
 ];

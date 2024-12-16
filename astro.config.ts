@@ -1,7 +1,9 @@
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import { baremuxPath } from '@mercuryworkshop/bare-mux/node';
+//@ts-expect-error No types
 import { epoxyPath } from '@mercuryworkshop/epoxy-transport';
+import { libcurlPath } from '@mercuryworkshop/libcurl-transport';
 import playformCompress from '@playform/compress';
 import { uvPath } from '@titaniumnetwork-dev/ultraviolet';
 import icon from 'astro-icon';
@@ -49,6 +51,11 @@ export default defineConfig({
                     {
                         src: `${epoxyPath}/**/*`.replace(/\\/g, '/'),
                         dest: 'epoxy',
+                        overwrite: false
+                    },
+                    {
+                        src: `${libcurlPath}/**/*`.replace(/\\/g, '/'),
+                        dest: 'libcurl',
                         overwrite: false
                     },
                     {

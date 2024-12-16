@@ -34,8 +34,15 @@
         return new Promise<void>((resolve) => {
             localStorage.setItem("incog||transport", transport);
             const wispUrl = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
-            if (transport === "epoxy") {
-                conn.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }])
+            switch(transport) {
+                case "epoxy":
+                    conn.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
+                    break;
+                case "libcurl":
+                    conn.setTransport("/libcurl/index.mjs", [{ wisp: wispUrl }]);
+                    break;
+                default:
+                    conn.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
             }
             resolve();
         })

@@ -16,6 +16,6 @@ Deno.serve({
     hostname: '0.0.0.0',
     port: parseInt(Deno.env.get('PORT') as string) || parsedDoc.server.port || 8000,
     onListen() {
-        listeningMessage(parseInt(Deno.env.get('PORT') as string) || 8000, 'hono');
+        listeningMessage(parseInt(Deno.env.get('PORT') as string) || parsedDoc.server.port || 8000, 'hono');
     },
 }, app.fetch);

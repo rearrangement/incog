@@ -7,6 +7,8 @@
         "dev": "deno task dev:server & deno task dev:client",
         "build": "deno task check:frontend && astro build",
         "start": "deno run --allow-net --allow-read --allow-env --allow-ffi --allow-sys server/server.ts",
+        "bstart": "deno task build && deno task start",
+        "bstart:standalone": "deno task build && deno task start:standalone",
         "start:standalone": "deno run --allow-net --allow-read --allow-env server/standalone/standalone.ts",
         "check:frontend": "astro check",
         "check:server": "deno check server/**/*.ts",

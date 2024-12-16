@@ -100,7 +100,7 @@ git clone https://github.com/titaniumnetwork-dev/incognito && cd incognito
 2. Install all of the dependencies:
 
 ```bash
-deno install --allow-script # This is here for sharp and other dependencies like bufferutil
+deno install --allow-scripts # This is here for sharp and other dependencies like bufferutil
 ```
 
 3. Create a config.toml file

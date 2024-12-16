@@ -19,4 +19,4 @@ services:
         #  - bstart:standalone - Use if using Hono
         #  See docs for differences
         #  - start:standalone - Command to use Hono over fastify
-        #  See docs for differences between the servers
+        #  See docs for differences between the serversversion: '3'

@@ -25,4 +25,9 @@ config.toml
 
 # jetbrains setting folder
 .idea/
+
+# Stupidness
 ~/
+
+# Docker files that aren't needed in the real repo
+docker-compose.local.yml

@@ -33,3 +33,7 @@
 - Configuration is done via TOML over a bunch of environment vars
 - Removes Biome in place of Deno's native formatter
 - A better roadmap of what should be done in the future.
+
+# 1.1.1
+- Fixes a bug where if games aren't enabled it redirects to localhost:8080 over just /
+- Fixes a bug where if games aren't enabled, it still loads and compresses images over just ignoring them.

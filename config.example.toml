@@ -1,5 +1,5 @@
 [buildOpts]
-games = false
+games = true
 
 [server]
 wisp = true

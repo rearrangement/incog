@@ -8,12 +8,10 @@ import games from "../../data/games.json";
 const images = import.meta.glob<{ default: ImageMetadata }>(
     '/src/assets/games/*.{jpeg,jpg,png,gif,webp}'
 );
-if (!GAMES_LINK) {
-    return Astro.redirect('/');
-}
 ---
 
-<Layout title="">
+{!GAMES_LINK && <Layout title="" redirect={{path: '/', interval: 0}}>}
+{GAMES_LINK && <Layout title="">}
     <div class="w-full h-full px-[15%]">
         <div class="h-[80px] w-full p-0 flex self-center transition duration-200">
             <div class="flex grow items-center justify-left">

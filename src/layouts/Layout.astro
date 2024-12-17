@@ -1,6 +1,14 @@
 ---
 import { SEO } from 'astro-seo';
-const { title } = Astro.props;
+
+interface Props {
+    title?: string;
+    redirect?: {
+        path: string;
+        interval: number;
+    }
+}
+const { title, redirect } = Astro.props;
 import { ClientRouter } from 'astro:transitions';
 import LoadScripts from '@components/Scripts.astro';
 import SettingsLoader from '@components/settings/Loader.astro';
@@ -51,6 +59,7 @@ import SettingsLoader from '@components/settings/Loader.astro';
                 ]
             }}
         />
+        {redirect !== undefined && <meta http-equiv="refresh" content=`${redirect.interval};${redirect.path}`>}
         <ClientRouter fallback="animate" />
     </head>
     <body class="w-full h-screen min-h-screen text-[--text-color]">

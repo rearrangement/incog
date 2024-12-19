@@ -54,7 +54,7 @@ import FrameManager from '@components/FrameManager.astro';
             //it will error due to this running on every page and not just this one
             try {
                 if (link) {
-                    prox(__uv$config!.prefix + link);
+                    prox(link, await sj);
                     history.pushState({}, "", "/");
                 }
                 const formInput = document.getElementById("form-input") as HTMLInputElement;

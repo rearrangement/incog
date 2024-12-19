@@ -20,7 +20,7 @@ import FrameManager from '@components/FrameManager.astro';
         import { BareClient } from "@mercuryworkshop/bare-mux";
         //simple script I wrote so I don't have to repeat myself (located at: src/ts/serviceWorker.ts)
         import { initServiceWorker } from "@scripts/serviceWorker.ts";
-        let sj: typeof ScramjetController;
+        let scram: typeof ScramjetController;
         //sets the style of the iframe and enables the little panel at the top
         async function prox(term: string, sj?: typeof ScramjetController) {
             let url;
@@ -40,9 +40,9 @@ import FrameManager from '@components/FrameManager.astro';
             }
         }
         document.addEventListener("DOMContentLoaded", async () => {
-            sj = initServiceWorker().then(async (sj): Promise<typeof ScramjetController> => {
+            scram = initServiceWorker().then(async (sj): Promise<typeof ScramjetController> => {
                 console.log('SW active');
-                return sj
+                return sj;
             });
         });
         //define all of our events and if there is a link proxy it and set the history to /
@@ -50,11 +50,12 @@ import FrameManager from '@components/FrameManager.astro';
             let links: URLSearchParams = new URLSearchParams(window.location.search);
             const link = links.get('link');
             const client = new BareClient();
+            scram = await scram;
             //this is in a try {} catch {} as to not pollute the console with errors
             //it will error due to this running on every page and not just this one
             try {
                 if (link) {
-                    prox(link, await sj);
+                    prox(search(localStorage.getItem("incog||proxy") === "uv" ? __uv$config.decodeUrl!(link): scram.decodeUrl(link), localStorage.getItem("incog||search") as string), scram);
                     history.pushState({}, "", "/");
                 }
                 const formInput = document.getElementById("form-input") as HTMLInputElement;
@@ -63,15 +64,15 @@ import FrameManager from '@components/FrameManager.astro';
                     if (!iframe) {
                         return;
                     }
-                    prox(formInput?.value, await sj);
+                    prox(formInput?.value, scram);
                 })
                 document.getElementById("form-input")?.addEventListener("keypress", async function (event: any) {
                     if (event.key === "Enter") {
-                            const iframe = document.getElementById("iframe") as HTMLIFrameElement;
-                            if (!iframe) {
-                                return;
-                            }
-                            prox(formInput?.value, await sj);
+                        const iframe = document.getElementById("iframe") as HTMLIFrameElement;
+                        if (!iframe) {
+                            return;
+                        }
+                        prox(formInput?.value, scram);
                     }
                 })
                 document.getElementById("form-input")?.addEventListener("input", async function() {

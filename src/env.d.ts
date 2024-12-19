@@ -8,3 +8,5 @@ type Suggestion = {
 };
 declare var BareMux: any;
 declare var EpxMod: any;
+declare var ScramjetController: any;
+declare var $scramjet: any;

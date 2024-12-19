@@ -20,12 +20,16 @@ import FrameManager from '@components/FrameManager.astro';
         import { BareClient } from "@mercuryworkshop/bare-mux";
         //simple script I wrote so I don't have to repeat myself (located at: src/ts/serviceWorker.ts)
         import { initServiceWorker } from "@scripts/serviceWorker.ts";
+        let scram: typeof ScramjetController;
         //sets the style of the iframe and enables the little panel at the top
-        async function prox(term: string) {
+        async function prox(term: string, sj?: typeof ScramjetController) {
             let url;
             if (localStorage.getItem("incog||proxy") === "uv") {
                 url = __uv$config!.prefix + __uv$config.encodeUrl!(search(term, localStorage.getItem("incog||search") as string))
-            } else if (localStorage.getItem("incog||proxy") === "sj") {}
+            } 
+            else if (localStorage.getItem("incog||proxy") === "sj") {
+                url = sj.encodeUrl(search(term, localStorage.getItem("incog||search") as string));
+            }
             const iframe = document.getElementById("iframe") as HTMLIFrameElement;
             const frameManager = document.getElementById("framemanager") as HTMLElement;
             frameManager.classList.remove("hidden");
@@ -35,38 +39,40 @@ import FrameManager from '@components/FrameManager.astro';
                 return; 
             }
         }
-        document.addEventListener("DOMContentLoaded", () => {
-            initServiceWorker().then(() => { console.log('Service worker active!') });
+        document.addEventListener("DOMContentLoaded", async () => {
+            scram = initServiceWorker().then(async (sj): Promise<typeof ScramjetController> => {
+                console.log('SW active');
+                return sj;
+            });
         });
         //define all of our events and if there is a link proxy it and set the history to /
-        document.addEventListener("astro:page-load", function () {        
+        document.addEventListener("astro:page-load", async function () {
             let links: URLSearchParams = new URLSearchParams(window.location.search);
             const link = links.get('link');
             const client = new BareClient();
+            scram = await scram;
             //this is in a try {} catch {} as to not pollute the console with errors
             //it will error due to this running on every page and not just this one
             try {
                 if (link) {
-                    prox(__uv$config!.prefix + link);
+                    prox(search(localStorage.getItem("incog||proxy") === "uv" ? __uv$config.decodeUrl!(link): scram.decodeUrl(link), localStorage.getItem("incog||search") as string), scram);
                     history.pushState({}, "", "/");
                 }
                 const formInput = document.getElementById("form-input") as HTMLInputElement;
-                document.getElementById("form-submit")?.addEventListener("click", function () {
-                    initServiceWorker().then(() => {
-                        const iframe = document.getElementById("iframe") as HTMLIFrameElement;
-                        if (!iframe) {
-                            return;
-                        }
-                        prox(formInput?.value)
-                    })
+                document.getElementById("form-submit")?.addEventListener("click", async function () {
+                    const iframe = document.getElementById("iframe") as HTMLIFrameElement;
+                    if (!iframe) {
+                        return;
+                    }
+                    prox(formInput?.value, scram);
                 })
-                document.getElementById("form-input")?.addEventListener("keypress", function (event: any) {
+                document.getElementById("form-input")?.addEventListener("keypress", async function (event: any) {
                     if (event.key === "Enter") {
                         const iframe = document.getElementById("iframe") as HTMLIFrameElement;
                         if (!iframe) {
                             return;
                         }
-                        prox(formInput?.value)
+                        prox(formInput?.value, scram);
                     }
                 })
                 document.getElementById("form-input")?.addEventListener("input", async function() {

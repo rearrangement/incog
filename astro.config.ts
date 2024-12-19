@@ -12,6 +12,7 @@ import { defineConfig, envField } from 'astro/config';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 //we need the buildOpts from here : D
 import { parsedDoc } from './server/config/config.ts';
+const scramjetPath = `${import.meta.dirname}/vendor/scramjet/dist/`
 
 // https://astro.build/config
 export default defineConfig({
@@ -63,6 +64,11 @@ export default defineConfig({
                         dest: 'baremux',
                         overwrite: false,
                     },
+                    {
+                        src: `${scramjetPath}/**/*`.replace(/\\/g, '/'),
+                        dest: 'scram',
+                        overwrite: false
+                    }
                 ],
             }),
         ],

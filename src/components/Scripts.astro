@@ -18,10 +18,14 @@
             search.src = '/search.js';
             search.defer = true;
             document.body.appendChild(search);
+            const sj = document.createElement('script');
+            sj.src = "/scram/scramjet.controller.js";
+            sj.defer = true;
+            document.body.appendChild(sj);
             const checkScripts = setInterval(() => {
                 //If both of these aren't defined this will repeat until they are
                 //this allows use to wait for all of the scripts to be ready *before* we setup the serviceworker
-                if (typeof __uv$config !== 'undefined') {
+                if (typeof __uv$config !== 'undefined' && typeof ScramjetController !== 'undefined') {
                     clearInterval(checkScripts);
                     resolve();
                 }

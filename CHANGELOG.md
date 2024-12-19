@@ -37,3 +37,8 @@
 # 1.1.1
 - Fixes a bug where if games aren't enabled it redirects to localhost:8080 over just /
 - Fixes a bug where if games aren't enabled, it still loads and compresses images over just ignoring them.
+
+# 1.1.2
+- Fixes bugs with apps opening as the full url instead of just the correct link
+- Fixes a bug with the iFrame panel where it copies & pastes the full link instead of just the normal link.
+- Add Scramjet

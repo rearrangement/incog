@@ -42,3 +42,6 @@
 - Fixes bugs with apps opening as the full url instead of just the correct link
 - Fixes a bug with the iFrame panel where it copies & pastes the full link instead of just the normal link.
 - Add Scramjet
+
+# 1.1.3
+- Add the notice that ScramJet is in beta and may break

@@ -19,7 +19,7 @@ import { Icon } from 'astro-icon/components';
 <script>
     import { navigate } from 'astro:transitions/client';
     function defineVars() {
-        const iframe = document.getElementById("iframe") as DieTS;
+        const iframe = document.getElementById("iframe") as HTMLIFrameElement;
         const win = iframe.contentWindow;
         //return both the iframe and the iframe's window
         //Usage: [variable].iframe or [variable].win

@@ -45,3 +45,7 @@
 
 # 1.1.3
 - Add the notice that ScramJet is in beta and may break
+
+# 1.1.4
+- Add the ability to disable/enable SEO or selectively render/show it
+- Adds the docker-builds.yml file to show the builds I am doing for the docker images.

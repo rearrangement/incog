@@ -244,12 +244,19 @@ docker compose -f ./docker-compose.build.yml build
 > As it says, `buildOpts` will only apply when *building* the website. This can be changed in the docker-compose files.
 
 ##### Build Opts
-| Type | Default | Description                        |
-|------|---------|------------------------------------|
-| games | `true` | Disables or enables the games page |
+| Type | Default | Description                        | Can be overwritten by ENV var |
+|------|---------|------------------------------------|-------------------------------|
+| games | `true` | Disables or enables the games page | - [ ] - No |
 
 ##### Server
-| Type | Default | Description                                                                                                     |
-|------|---------|-----------------------------------------------------------------------------------------------------------------|
-| port | `8000`  | Change the default port. *Note: the environment var `PORT` takes precedence*                                    |
-| wisp | `true`  | Disable or enables the in built wisp server. *Note: when using the Hono server there is no built-in wisp server |
+| Type | Default | Description                                                                                                     | Can be overwritten by ENV var |
+|------|---------|-----------------------------------------------------------------------------------------------------------------|------------------------------|
+| port | `8000`  | Change the default port. *Note: the environment var `PORT` takes precedence*                                    | - [x] - Yes |
+| wisp | `true`  | Disable or enables the in built wisp server. *Note: when using the Hono server there is no built-in wisp server | - [ ] - No |
+
+##### SEO
+| Type   | Default                 | Description                                                              | Can be overwritten by ENV var | Is used at build time |
+---------|-------------------------|--------------------------------------------------------------------------|-------------------------------|-----------------------|
+| SEO    | `false`                 | Change whether or not to enabled SEO                                     | - [x] - Yes - `SEO`           | - [x] - Yes           |
+| DOMAIN | `http://localhost:8000` | When the `both` option is enable, only show the SEO stuff on this domain | - [x] - Yes - `DOMAIN`        | - [ ] - No            |
+| BOTH   | `false`                 | Works in tandem with option `DOMAIN`                                     | - [x] - Yes - `BOTH`          | - [ ] - No            |

@@ -30,5 +30,3 @@ config.toml
 # Stupidness
 ~/
 
-# Docker files that aren't needed in the real repo
-docker-compose.local.yml

@@ -1,0 +1,59 @@
+version: '3'
+
+# This file is for building the docker images and pushing them to the registry. You can safely ignore this
+
+services:
+    incognito:
+        image: motortruck1221/incognito:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: incognito
+        restart: unless-stopped
+        ports:
+            - '8081:8000'
+        volumes:
+          - ./config.toml:/app/config.toml
+    incognito-versioned:
+        image: motortruck1221/incognito:1.1.3
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: incognito
+        restart: unless-stopped
+        ports:
+            - '8081:8000'
+        volumes:
+          - ./config.toml:/app/config.toml
+    incognito-seo:
+        image: motortruck1221/incognito:latest-seo
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+              - SEO=true
+        container_name: incognito
+        restart: unless-stopped
+        ports:
+            - '8081:8000'
+        environment:
+          - SEO=true
+          - BOTH=true
+        volumes:
+          - ./config.toml:/app/config.toml
+    incognito-seo-versioned:
+        image: motortruck1221/incognito:1.1.3-seo
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+              - SEO=true
+        container_name: incognito
+        restart: unless-stopped
+        ports:
+            - '8081:8000'
+        environment:
+          - SEO=true
+          - BOTH=true
+        volumes:
+          - ./config.toml:/app/config.toml

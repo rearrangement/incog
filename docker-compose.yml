@@ -9,7 +9,12 @@ services:
             # The ports work like this: Host:Container (DO NOT MODIFY THE CONTAINER PORT)
             - '8081:8000'
         volumes:
-          - ./config.toml:/app/config.toml
+          - ./config.toml:/app/config.toml # This can be removed if you need the image to be stateless
+          #environment:
+          # - SEO=false - Enabled to turn on SEO in the build
+          # - BOTH=false - Use if you want both the SEO and non-seo versions
+          # - DOMAIN=https://incog.works - Use if you want SEO (when using the both option) to work properly
+
         # The below allows you to change any of the `buildOpts` config options and use them.
         #command:
         #  - bstart - Use if using Fastify

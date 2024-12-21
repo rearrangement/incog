@@ -28,7 +28,7 @@ if (parsedDoc.seo.enabled && !parsedDoc.seo.both || !parsedDoc.seo.enabled) {
     });
     await app.register(fastifyStatic, {
         root: `${Deno.cwd()}/dist/seo`,
-        constraints: { host: new URL(parsedDoc.seo.domain).host },
+        constraints: { host: new URL(Deno.env.get('DOMAIN') || parsedDoc.seo.domain).host },
         decorateReply: false
     })
 }

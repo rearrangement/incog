@@ -15,7 +15,7 @@ if (parsedDoc.seo.enabled && !parsedDoc.seo.both || !parsedDoc.seo.enabled) {
 
 if (parsedDoc.seo.enabled && parsedDoc.seo.both) {
     app.use('/*', (ctx, next) => {
-        if (new URL(ctx.req.url).host === new URL(parsedDoc.seo.domain).host) {
+        if (new URL(ctx.req.url).host === new URL(Deno.env.get('DOMAIN') || parsedDoc.seo.domain).host) {
             return serveStatic({ root: `${Deno.cwd()}/dist/seo` })(ctx, next);
         }
         else {

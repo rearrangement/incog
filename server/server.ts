@@ -17,9 +17,22 @@ await app.register(fastifyCookie, {
 await app.register(fastifyCompress, {
     encodings: ['br', 'gzip', 'deflate']
 });
-await app.register(fastifyStatic, {
-    root: `${Deno.cwd()}/dist`
-});
+
+if (parsedDoc.seo.enabled && !parsedDoc.seo.both || !parsedDoc.seo.enabled) {
+    await app.register(fastifyStatic, {
+        root: `${Deno.cwd()}/dist`
+    });
+} else {
+    await app.register(fastifyStatic, {
+        root: `${Deno.cwd()}/dist/noseo`,
+    });
+    await app.register(fastifyStatic, {
+        root: `${Deno.cwd()}/dist/seo`,
+        constraints: { host: new URL(parsedDoc.seo.domain).host },
+        decorateReply: false
+    })
+}
+
 await app.register(fastifyMiddie);
 await app.register(fastifyHttpProxy, {
     upstream: 'https://rawcdn.githack.com/ruby-network/ruby-assets/main/',

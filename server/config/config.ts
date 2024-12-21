@@ -8,7 +8,11 @@ interface Data {
         wisp: boolean;
         port: number;
     };
-    //other options can be added later.
+    seo: {
+        enabled: boolean;
+        both: boolean;
+        domain: string;
+    };
 }
 
 const doc = await Deno.readTextFile(`${Deno.cwd()}/config.toml`);
@@ -28,6 +32,21 @@ if (typeof parsedDoc.server.wisp !== "boolean") {
 }
 if (typeof parsedDoc.server.port !== "number") {
     throw new Error(`Invalid type for "server.port"! It should be a number`);
+}
+if (typeof parsedDoc.seo.enabled !== "boolean") {
+    throw new Error(`Invalid type for "seo.enabled"! It should be an boolean (true/false)`);
+}
+if (typeof parsedDoc.seo.both !== "boolean") {
+    throw new Error(`Invalid type for "seo.both"! It should be an boolean (true/false)`);
+}
+if (typeof parsedDoc.seo.domain !== "string") {
+    throw new Error(`Invalid type for "seo.domain"! It should be an string`);
+} else {
+    try {
+        new URL(parsedDoc.seo.domain);
+    } catch (e: any) {
+        throw new Error(e);
+    }
 }
 
 export { type Data as TOMLConfig, parsedDoc };

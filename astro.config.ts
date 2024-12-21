@@ -38,6 +38,11 @@ export default defineConfig({
                 access: 'public',
                 default: parsedDoc.buildOpts.games,
             }),
+            SEO: envField.boolean({
+                context: 'client',
+                access: 'public',
+                default: Boolean(Deno.env.get('SEO')) || parsedDoc.seo.enabled
+            })
         },
     },
     vite: {

@@ -5,6 +5,7 @@
         "dev:server": "deno run -A --watch server/server.ts",
         "dev:client": "astro dev",
         "dev": "deno task dev:server & deno task dev:client",
+        "build:seo": "deno task check:frontend && SEO=true astro build --outDir dist/seo/ && SEO=false astro build --outDir dist/noseo/",
         "build": "deno task check:frontend && astro build",
         "start": "deno run --allow-net --allow-read --allow-env --allow-ffi --allow-sys server/server.ts",
         "bstart": "deno task build && deno task start",

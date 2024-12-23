@@ -52,22 +52,25 @@ export const getStaticPaths = (async () => {
     </div>
     <script>
         import { initServiceWorker } from '@scripts/serviceWorker.ts';
-    document.addEventListener('DOMContentLoaded', () => {
-        initServiceWorker().then(() => {
-            console.log('Service worker active!');
+        document.addEventListener('DOMContentLoaded', () => {
+            initServiceWorker().then(() => {
+                console.log('Service worker active!');
+            });
         });
-    });
     window.fullScreenGame = function () {
         const iframe = document.getElementById('gameIframe') as HTMLIFrameElement;
         iframe.requestFullscreen();
     };
-    async function prox(term: string) {
+        async function prox(term: string, iframeId: string) {
+        console.log(term);
         let url;
         if (localStorage.getItem('incog||proxy') === 'uv') {
-            console.log(url);
             url = __uv$config!.prefix + __uv$config.encodeUrl!(term);
-        } else if (localStorage.getItem('incog||proxy') === 'sj') {}
-        const iframe = document.getElementById('gameIframe-py') as HTMLIFrameElement;
+        } 
+        else if (localStorage.getItem('incog||proxy') === 'sj') {
+            url = $scramjet.config.prefix + $scramjet.codec.encode(term);
+        }
+        const iframe = document.getElementById(iframeId) as HTMLIFrameElement;
         iframe.src = url as string || '/load';
         if (!iframe) {
             return;
@@ -93,14 +96,12 @@ export const getStaticPaths = (async () => {
             ) as HTMLIFrameElement;
             if (py && url) {
                 pyIframe.classList.remove('hidden');
-                await prox(url);
+                await prox(url, 'gameIframe-py');
             } else {
                 if (normalIframe) {
                     normalIframe.classList.remove('hidden');
                     normalIframe.src = '/load';
-                    normalIframe.src = `/gms/${
-                        atob(game as string)!.toLowerCase().replace(/\s/g, '-')
-                    }/${atob(baseFile as string)}`;
+                    await prox(`https://rawcdn.githack.com/ruby-network/ruby-assets/main/games/${atob(game as string)!.toLowerCase().replace(/\s/g, '-')}/${atob(baseFile as string)}`, 'gameIframe-normal');
                 }
             }
             history.pushState({}, '', '/gs');

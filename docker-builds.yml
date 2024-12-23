@@ -16,28 +16,4 @@ services:
             context: .
             dockerfile: Dockerfile
         container_name: incognito
-        restart: unless-stopped
-    incognito-seo:
-        image: motortruck1221/incognito:latest-seo
-        build:
-            context: .
-            dockerfile: Dockerfile
-            args:
-              - SEO=true
-        container_name: incognito
-        restart: unless-stopped
-        environment:
-          - SEO=true
-          - BOTH=true
-    incognito-seo-versioned:
-        image: motortruck1221/incognito:1.1.4-seo
-        build:
-            context: .
-            dockerfile: Dockerfile
-            args:
-              - SEO=true
-        container_name: incognito
-        restart: unless-stopped
-        environment:
-          - SEO=true
-          - BOTH=true
+        restart: unless-stopped 

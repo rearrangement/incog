@@ -11,7 +11,7 @@ RUN apt update
 RUN apt install -y python3 python3-pip libssl-dev build-essential python3-dev nodejs
 RUN cp -n config.example.toml config.toml
 RUN deno install --allow-scripts
-RUN if [ -z "$SEO" ]; then deno task build; else deno task build:seo; fi
+RUN deno task build
 RUN export TERM=xterm-256color
 ENV PORT="8000"
 VOLUME /app

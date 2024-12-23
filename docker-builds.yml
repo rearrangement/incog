@@ -11,7 +11,7 @@ services:
         container_name: incognito
         restart: unless-stopped
     incognito-versioned:
-        image: motortruck1221/incognito:1.1.4
+        image: motortruck1221/incognito:1.1.5
         build:
             context: .
             dockerfile: Dockerfile

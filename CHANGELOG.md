@@ -49,3 +49,6 @@
 # 1.1.4
 - Add the ability to disable/enable SEO or selectively render/show it
 - Adds the docker-builds.yml file to show the builds I am doing for the docker images.
+
+# 1.1.5
+- Fixes the games (mostly)

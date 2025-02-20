@@ -2,7 +2,7 @@
     "name": "incognito",
     "version": "1.1.5",
     "scripts": {
-        "build": "deno task build",
+        "build": "npm install deno && deno task build",
         "start": "deno task start"
     },
     "private": true,
